@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- Chống zoom và lật ngang -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>ROBLOX HACK - TỰ DO TÙY CHỈNH:> </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #fff;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+            /* Chống lật ngang */
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            touch-action: pan-y;
+        }
+        
+        /* Thêm media query cho chế độ ngang */
+        @media screen and (orientation: landscape) {
+            body {
+                transform: rotate(0deg);
+                width: 100vw;
+                height: 100vh;
+                overflow-x: hidden;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+            
+            .container {
+                max-height: 100vh;
+                overflow-y: auto;
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Style cho video container */
+        .video-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-wrapper:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem); /* Responsive font size */
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #00dbde, #fc00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            will-change: transform;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .image-slider {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            object-fit: cover;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .game-info {
+            padding: 20px;
+        }
+        
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .game-description {
+            opacity: 0.7;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .game-custom-content {
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 219, 222, 0.3);
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0, 219, 222, 0.4);
+        }
+        
+        .mini-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+        
+        .mini-chat:hover {
+            transform: scale(1.05);
+        }
+        
+        .mini-chat i {
+            font-size: 24px;
+            color: white;
+        }
+        
+        .snow-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 100;
+                        font-size: 24px;
+            color: white;
+        }
+        
+        .snow-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        .zalo-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .zalo-popup h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .zalo-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .zalo-btn {
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .zalo-btn.yes {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            color: white;
+        }
+
+        .zalo-btn.no {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .zalo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+        
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: #fff;
+            font-size: 16px;
+            pointer-events: none;
+            z-index: 1001;
+            animation: fall linear forwards;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Navigation dots */
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            z-index: 2;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #fff;
+            transform: scale(1.2);
+        }
+        
+        /* Add Game Card */
+        .add-game-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            min-height: 350px;
+            transition: all 0.3s;
+        }
+        
+        .add-game-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+        
+        .add-game-icon {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        
+        .add-game-card:hover .add-game-icon {
+            transform: scale(1.1);
+            color: rgba(255,255,255,0.8);
+        }
+        
+        /* Delete Button */
+        .delete-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,71,87,0.9);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .game-card:hover .delete-btn {
+            opacity: 1;
+        }
+        
+        /* Marquee Notification */
+        .marquee-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            color: white;
+            padding: 12px 0;
+            z-index: 1000;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Popup Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #16213e;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            z-index: 1002;
+            width: 90%;
+            max-width: 500px;
+            overflow: hidden;
+            display: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .popup-header {
+            padding: 20px;
+            background: linear-gradient(90deg, #00dbde, #fc00ff);
+            color: white;
+            text-align: center;
+        }
+        
+        .popup-body {
+            padding: 25px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #00dbde;
+            box-shadow: 0 0 0 3px rgba(0,219,222,0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .image-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            margin-top: 10px;
+            border-radius: 8px;
+            display: none;
+            border: 1px dashed rgba(255,255,255,0.3);
+        }
+        
+        .popup-footer {
+            padding: 15px 25px;
+            background: rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btn {
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,219,222,0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,219,222,0.4);
+        }
+        
+        .btn-danger {
+            background: rgba(255,71,87,0.9);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: rgba(255,71,87,1);
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #4cd137;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .games-grid { grid-template-columns: 1fr; }
+            .popup { width: 95%; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Marquee Notification -->
+    <div class="marquee-container" id="marqueeContainer">
+        <div class="marquee-content" id="marqueeContent"></div>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" style="display: none;"></div>
+
+    <!-- Popup thông báo Zalo -->
+    <div class="zalo-popup" id="zaloPopup" style="display: none;">
+        <h3>Bạn đã vào nhóm Zalo chưa?</h3>
+        <div class="zalo-buttons">
+            <button class="zalo-btn yes" onclick="joinZaloGroup()">Rồi</button>
+            <button class="zalo-btn no" onclick="redirectToZalo()">Chưa</button>
+        </div>
+    </div>
+
+    <!-- Password Popup -->
+    <div class="popup" id="passwordPopup">
+        <div class="popup-header">
+            <h2>Xác thực Quản trị</h2>
+        </div>
+        <div class="popup-body">
+            <div class="form-group">
+                <label for="password">Mật khẩu Quản trị</label>
+                <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
+                <p id="passwordError" style="color: #ff4757; margin-top: 5px; display: none;">
+                    <i class="fas fa-exclamation-circle"></i> Mật khẩu không chính xác!
+                </p>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <button class="btn btn-danger" onclick="closePopup()">
+                <i class="fas fa-times"></i> Hủy
+            </button>
+            <button class="btn btn-primary" onclick="checkPassword()">
+                <i class="fas fa-check"></i> Xác nhận
+            </button>
+        </div>
+    </div>
+    
+    <!-- Add Game Popup -->
+    <div class="popup" id="addGamePopup">
+        <div class="popup-header">
+            <h2>Thêm Game Mới</h2>
+        </div>
+        <div class="popup-body">
+            <div class="form-group">
+                <label for="gameTitle">Tên Game</label>
+                <input type="text" id="gameTitle" class="form-control" placeholder="VD: Delta X VNG Lite">
+            </div>
+            <div class="form-group">
+                <label for="gameDescription">Mô tả</label>
+                <textarea id="gameDescription" class="form-control" placeholder="Mô tả chi tiết về game..."></textarea>
+            </div>
+            <div class="form-group">
+                <label for="gameLink">Link Tải</label>
+                <input type="text" id="gameLink" class="form-control" placeholder="https://example.com/download">
+            </div>
+            <div class="form-group">
+                <label for="gameCustomContent">Nội dung riêng (Tin nhắn/Link)</label>
+                <textarea id="gameCustomContent" class="form-control" placeholder="Nhập nội dung riêng hoặc link đặc biệt..."></textarea>
+                <small style="opacity: 0.7;">Nội dung này sẽ hiển thị riêng trong card game</small>
+            </div>
+            <div class="form-group">
+                <label for="gameImage">Ảnh Game</label>
+                <input type="file" id="gameImage" class="form-control" accept="image/*">
+                <img id="imagePreview" class="image-preview">
+            </div>
+        </div>
+        <div class="popup-footer">
+            <button class="btn btn-danger" onclick="closePopup()">
+                <i class="fas fa-times"></i> Hủy
+            </button>
+            <button class="btn btn-primary" onclick="saveGame()">
+                <i class="fas fa-save"></i> Lưu Game
+            </button>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <div class="container">
+        <!-- Thêm 2 video YouTube ở đây -->
+        <div class="video-container">
+            <!-- Video 1 -->
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/DZgHXZ82UJg?si=wfNbYDcNxgsdjoqt" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            
+            <!-- Video 2 -->
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/WfQTVcR2j80?si=9OxdRZ-LFIsIsNfA" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+        
+        <header>
+            <h1>HackGameTongHop</h1>
+            <p class="subtitle">Hack Roblox Client Nhiều Bản Luôn Cập Nhật</p>
+        </header>
+        
+        <div class="games-grid" id="gamesGrid">
+            <!-- Chỉ giữ lại 1 card game nhưng có slider ảnh -->
+            <div class="game-card">
+                <div class="image-slider" id="imageSlider">
+                    <!-- Các ảnh từ các tab cũ -->
+                    <img src="https://www.f6s.com/content-resource/profiles/5769070_92ce91f9b533a5ff3b8f92135b50f4e790109d82_th1.jpg" alt="Delta x VNG" class="slide active" loading="lazy">
+                    <img src="https://m.media-amazon.com/images/I/31c2Fekv61L._SL500_.jpg" alt="Fluxus VNG Lite" class="slide" loading="lazy">
+                    <img src="https://avatars.githubusercontent.com/u/211021487?s=200&v=4" alt="Krnl VNG Lite" class="slide" loading="lazy">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E03AQGJT30pze17YA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1700830953994?e=2147483647&v=beta&t=aGlZEMslY9hxjdkEynfVqkS32Ith_tPA4VdjUuncnYc" alt="Arceus x Neo VNG Lite" class="slide" loading="lazy">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo12AKu-Klid2HvPg3_2t0R3EZeivExCsZvA&s" alt="Code X VNG Lite" class="slide" loading="lazy">
+                    
+                    <!-- Navigation dots -->
+                    <div class="slider-dots">
+                        <div class="dot active" data-index="0"></div>
+                        <div class="dot" data-index="1"></div>
+                        <div class="dot" data-index="2"></div>
+                        <div class="dot" data-index="3"></div>
+                        <div class="dot" data-index="4"></div>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <h3 class="game-title">Delta x VNG Lite</h3>
+                    <p class="game-description">Mới đây có một Client đang rất HOT dành để Hack Blox Fruit có tên gọi là Delta X Executor. Cùng Tuan_Fix_Lag tìm hiểu về phần mềm này, cũng như nắm được cách Get Key để chạy được Blox Fruits trên Client này với thông tin được chia sẻ trong bài viết dưới đây nhé!</p>
+                    <a href="https://notevn.com/tps1d1pf" class="download-btn">Tải Game</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add Game Card -->
+        <div class="game-card add-game-card" onclick="showPasswordPopup()">
+            <div class="add-game-icon">+</div>
+        </div>
+        
+        <footer>
+            <p>© 2025 Tuan_Fix_Lag AND DATMCRR. All rights reserved.</p>
+                    </footer>
+    </div>
+    
+    <!-- Nút hiệu ứng tuyết -->
+    <div class="snow-btn" id="snowBtn">❄️</div>
+    
+    <!-- Mini Chat Icon -->
+    <div class="mini-chat" onclick="window.location.href='https://example.com/chat'">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    
+    <!-- Âm thanh Minecraft click -->
+    <audio id="minecraftClick" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" preload="auto"></audio>
+    
+    <script>
+        // Config
+        const ADMIN_PASSWORD = "Tuan_Fix_Lag";
+        const GITHUB_USERNAME = "sdrake5699"; // Thay bằng username GitHub của bạn
+        const GITHUB_REPO = "https://github.com/sdrake5699/Roblox-download/blob/main/games.json"; // Thay bằng tên repository bạn tạo
+        const GITHUB_TOKEN = "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"; // Thay bằng token bạn tạo
+        const GITHUB_API_URL = `https://api.github.com/repos/${sdrake5699}/${Roblox-download}/contents/games.json`;
+        
+        let currentGames = [];
+        let marqueeTimeout;
+        
+        // DOM Elements
+        const gamesGrid = document.getElementById('gamesGrid');
+        const marqueeContainer = document.getElementById('marqueeContainer');
+        const marqueeContent = document.getElementById('marqueeContent');
+        const overlay = document.getElementById('overlay');
+        const passwordPopup = document.getElementById('passwordPopup');
+        const addGamePopup = document.getElementById('addGamePopup');
+        const notification = document.getElementById('notification');
+        
+        // Sample Data
+        const sampleGames = [
+            {
+                id: 1,
+                title: "Delta X VNG Lite",
+                description: "Client hack Blox Fruit mới nhất 2023 với nhiều tính năng độc quyền.",
+                link: "https://delta.example.com",
+                image: "https://i.imgur.com/JqYeYnW.jpg",
+                customContent: "Link Zalo hỗ trợ: https://zalo.me/g/123456"
+            },
+            {
+                id: 2,
+                title: "Fluxus VNG Pro",
+                description: "Trình thực thi script mạnh mẽ với tốc độ load nhanh.",
+                link: "https://fluxus.example.com",
+                image: "https://i.imgur.com/pLQxNyz.jpg",
+                customContent: "Nhóm Telegram: @robloxhack_support"
+            }
+        ];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadGames();
+            setupEventListeners();
+            setupImageSlider();
+            
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('zaloPopup').style.display = 'block';
+            }, 1000);
+            
+            document.querySelectorAll('button, a.download-btn').forEach(btn => {
+                btn.addEventListener('click', playMinecraftSound);
+            });
+            
+            // Chống zoom bằng JavaScript (dự phòng)
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            // Chống lật ngang bằng JavaScript
+            function lockOrientation() {
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('portrait').catch(() => {});
+                } else if (window.screen.lockOrientation) {
+                    window.screen.lockOrientation('portrait');
+                }
+            }
+            
+            // Thử lock orientation khi trang load và khi có thay đổi orientation
+            lockOrientation();
+            window.addEventListener('orientationchange', lockOrientation);
+        });
+
+        // Hàm phát âm thanh Minecraft click
+        function playMinecraftSound() {
+            const sound = document.getElementById('minecraftClick');
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log('Cannot play sound:', e));
+        }
+
+        // Hàm khi bấm nút "Rồi"
+        function joinZaloGroup() {
+            playMinecraftSound();
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('zaloPopup').style.display = 'none';
+        }
+
+        // Hàm khi bấm nút "Chưa"
+        function redirectToZalo() {
+            playMinecraftSound();
+            window.open('https://zalo.me/g/ahmzci898', '_blank');
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('zaloPopup').style.display = 'none';
+        }
+
+        // Thêm hiệu ứng khi cuộn trang - tối ưu với requestAnimationFrame
+        let lastScrollY = 0;
+        let ticking = false;
+        
+        window.addEventListener('scroll', function() {
+            lastScrollY = window.scrollY;
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    updateMiniChat(lastScrollY);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+        
+        function updateMiniChat(scrollY) {
+            const miniChat = document.querySelector('.mini-chat');
+            if (scrollY > 100) {
+                miniChat.style.transform = 'scale(0.95)';
+            } else {
+                miniChat.style.transform = 'scale(1)';
+            }
+        }
+        
+        // Hiệu ứng khi di chuột vào nút tải game
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 6px 15px rgba(0, 219, 222, 0.4)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 4px 10px rgba(0, 219, 255, 0.3)';
+            });
+        });
+        
+        // Hiệu ứng tuyết rơi - tối ưu
+        const snowBtn = document.getElementById('snowBtn');
+        let snowInterval = null;
+        let isSnowing = false;
+        let activeSnowflakes = 0;
+        const maxSnowflakes = 50;
+        
+        snowBtn.addEventListener('click', function() {
+            playMinecraftSound();
+            isSnowing = !isSnowing;
+            
+            if (isSnowing) {
+                snowInterval = setInterval(createSnowflake, 150);
+                this.style.background = 'linear-gradient(45deg, #fc00ff, #00dbde)';
+            } else {
+                clearInterval(snowInterval);
+                this.style.background = 'linear-gradient(45deg, #00dbde, #fc00ff)';
+                document.querySelectorAll('.snowflake').forEach(sf => sf.remove());
+                activeSnowflakes = 0;
+            }
+        });
+        
+        function createSnowflake() {
+            if (activeSnowflakes >= maxSnowflakes) return;
+            
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄️';
+            
+            const startPosX = Math.random() * window.innerWidth;
+            snowflake.style.left = startPosX + 'px';
+            
+            const size = Math.random() * 15 + 8;
+            snowflake.style.fontSize = size + 'px';
+            
+            const animationDuration = Math.random() * 8 + 5;
+            snowflake.style.animationDuration = animationDuration + 's';
+            
+            document.body.appendChild(snowflake);
+            activeSnowflakes++;
+            
+            setTimeout(() => {
+                if (snowflake.parentNode) {
+                    snowflake.remove();
+                    activeSnowflakes--;
+                }
+            }, animationDuration * 1000);
+        }
+
+        // Image slider functionality
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show current slide
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        // Start auto-sliding
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
+        }
+
+        // Initialize slider
+        showSlide(0);
+        startSlider();
+
+        // Add click event for dots
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                clearInterval(slideInterval);
+                showSlide(parseInt(this.getAttribute('data-index')));
+                startSlider();
+            });
+        });
+
+        // Pause on hover
+        const slider = document.getElementById('imageSlider');
+        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slider.addEventListener('mouseleave', startSlider);
+        
+        // Game Manager Functions
+        async function loadGames() {
+            try {
+                const response = await fetch(GITHUB_API_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    const content = atob(data.content); // Giải mã base64
+                    currentGames = JSON.parse(content);
+                } else {
+                    // Nếu không tải được từ GitHub, dùng dữ liệu mẫu
+                    currentGames = [...sampleGames];
+                }
+            } catch (error) {
+                console.error('Lỗi khi tải game:', error);
+                currentGames = [...sampleGames];
+            }
+            
+            // Kiểm tra localStorage để đồng bộ offline
+            const localGames = localStorage.getItem('robloxGames');
+            if (localGames) {
+                currentGames = JSON.parse(localGames);
+            }
+            
+            renderGames();
+        }
+        
+        async function saveGamesToGitHub() {
+            try {
+                // Lấy nội dung hiện tại từ GitHub để lấy SHA (cần cho update)
+                const getResponse = await fetch(GITHUB_API_URL);
+                let sha = null;
+                
+                if (getResponse.ok) {
+                    const data = await getResponse.json();
+                    sha = data.sha;
+                }
+                
+                // Tạo nội dung mới
+                const content = btoa(JSON.stringify(currentGames, null, 2)); // Mã hóa base64
+                const message = `Update games at ${new Date().toISOString()}`;
+                
+                // Gửi request update
+                const response = await fetch(GITHUB_API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message,
+                        content,
+                        sha // Cần SHA nếu file đã tồn tại
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Lỗi khi lưu lên GitHub');
+                }
+                
+                // Lưu vào localStorage để dự phòng
+                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
+                
+                return true;
+            } catch (error) {
+                console.error('Lỗi khi đồng bộ lên GitHub:', error);
+                // Lưu vào localStorage nếu không kết nối được GitHub
+                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
+                return false;
+            }
+        }
+        
+        async function uploadImageToImgur(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                const response = await fetch('https://api.imgur.com/3/image', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Client-ID 9a7cec59c0c6f38' // Client ID công khai của Imgur
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                return data.data.link;
+            } catch (error) {
+                console.error('Lỗi khi tải ảnh lên Imgur:', error);
+                return 'https://via.placeholder.com/300x180?text=Upload+Failed';
+            }
+        }
+
+        function renderGames() {
+            gamesGrid.innerHTML = '';
+            
+            currentGames.forEach((game, index) => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <div class="game-image-container">
+                        <img src="${game.image}" alt="${game.title}" class="game-image">
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">${game.title}</h3>
+                        <p class="game-description">${game.description}</p>
+                        ${game.customContent ? `<div class="game-custom-content">${game.customContent}</div>` : ''}
+                        <a href="${game.link}" class="download-btn" target="_blank">
+                            <i class="fas fa-download"></i> Tải Ngay
+                        </a>
+                    </div>
+                    <button class="delete-btn" onclick="handleDeleteGame(${game.id}, ${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                gamesGrid.appendChild(gameCard);
+            });
+            
+            // Add the "Add Game" card
+            const addCard = document.createElement('div');
+            addCard.className = 'game-card add-game-card';
+            addCard.innerHTML = '<div class="add-game-icon">+</div>';
+            addCard.onclick = showPasswordPopup;
+            gamesGrid.appendChild(addCard);
+        }
+        
+        function handleDeleteGame(gameId, index) {
+            // Nếu là 2 game đầu tiên (index 0 và 1) thì yêu cầu nhập mật khẩu
+            if (index === 0 || index === 1) {
+                showPasswordPopupForDelete(gameId);
+            } else {
+                // Các game khác xóa bình thường
+                deleteGame(gameId);
+            }
+        }
+        
+        function showPasswordPopupForDelete(gameId) {
+            overlay.style.display = 'block';
+            passwordPopup.style.display = 'block';
+            document.getElementById('passwordError').style.display = 'none';
+            
+            // Thay đổi sự kiện xác nhận mật khẩu để xóa game
+            const confirmBtn = document.querySelector('#passwordPopup .btn-primary');
+            confirmBtn.onclick = function() {
+                const password =
+                document.getElementById('password').value;
+                if (password === ADMIN_PASSWORD) {
+                    closePopup();
+                    deleteGame(gameId);
+                } else {
+                    document.getElementById('passwordError').style.display = 'block';
+                }
+            };
+        }
+        
+        function setupEventListeners() {
+            // Image preview
+            document.getElementById('gameImage').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const preview = document.getElementById('imagePreview');
+                        preview.src = event.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+        
+        function showPasswordPopup() {
+            overlay.style.display = 'block';
+            passwordPopup.style.display = 'block';
+            document.getElementById('passwordError').style.display = 'none';
+            document.getElementById('password').value = '';
+        }
+        
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            if (password === ADMIN_PASSWORD) {
+                closePopup();
+                showAddGamePopup();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+            }
+        }
+        
+        function showAddGamePopup() {
+            // Reset form
+            document.getElementById('gameTitle').value = '';
+            document.getElementById('gameDescription').value = '';
+            document.getElementById('gameLink').value = '';
+            document.getElementById('gameCustomContent').value = '';
+            document.getElementById('gameImage').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            
+            overlay.style.display = 'block';
+            addGamePopup.style.display = 'block';
+        }
+        
+        function closePopup() {
+            overlay.style.display = 'none';
+            passwordPopup.style.display = 'none';
+            addGamePopup.style.display = 'none';
+        }
+        
+        async function saveGame() {
+            const title = document.getElementById('gameTitle').value.trim();
+            const description = document.getElementById('gameDescription').value.trim();
+            const link = document.getElementById('gameLink').value.trim();
+            const customContent = document.getElementById('gameCustomContent').value.trim();
+            const imageFile = document.getElementById('gameImage').files[0];
+            
+            if (!title || !description || !link) {
+                showNotification('Vui lòng điền đầy đủ thông tin!', 'error');
+                return;
+            }
+            
+            const newGame = {
+                id: Date.now(),
+                title,
+                description,
+                link: link.startsWith('http') ? link : `https://${link}`,
+                customContent,
+                image: imageFile ? await uploadImageToImgur(imageFile) : 'https://via.placeholder.com/300x180?text=No+Image'
+            };
+            
+            // Thêm vào danh sách hiện tại
+            currentGames.push(newGame);
+            
+            // Đồng bộ lên GitHub
+            const success = await saveGamesToGitHub();
+            
+            if (success) {
+                showMarqueeNotification(`THÔNG BÁO: Đã thêm game "${title}" thành công!`);
+                renderGames();
+                closePopup();
+                showNotification('Đã thêm game mới thành công!', 'success');
+            } else {
+                showNotification('Đã lưu game tạm thời, chưa đồng bộ lên server!', 'warning');
+            }
+        }
+        
+        async function deleteGame(gameId) {
+            if (!confirm('Bạn có chắc chắn muốn xóa game này?')) return;
+            
+            currentGames = currentGames.filter(game => game.id !== gameId);
+            const success = await saveGamesToGitHub();
+            
+            if (success) {
+                renderGames();
+                showNotification('Đã xóa game thành công!', 'success');
+            } else {
+                showNotification('Đã xóa game tạm thời, chưa đồng bộ lên server!', 'warning');
+            }
+        }
+        
+        function showMarqueeNotification(message) {
+            // Clear previous timeout if exists
+            if (marqueeTimeout) {
+                clearTimeout(marqueeTimeout);
+            }
+            
+            // Update content and show
+            marqueeContent.textContent = message;
+            marqueeContainer.style.display = 'block';
+            
+            // Auto hide after 1 hour (3600000ms)
+            marqueeTimeout = setTimeout(() => {
+                marqueeContainer.style.display = 'none';
+            }, 3600000);
+        }
+        
+        function showNotification(message, type = 'success') {
+            notification.textContent = message;
+            notification.style.backgroundColor = type === 'success' ? '#4cd137' : '#ff4757';
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        function setupImageSlider() {
+            showSlide(0);
+            startSlider();
+        }
+    </script>
+</body>
+</html>
