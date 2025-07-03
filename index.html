@@ -231,7 +231,7 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             z-index: 100;
-                        font-size: 24px;
+            font-size: 24px;
             color: white;
         }
         
@@ -389,7 +389,7 @@
             background: rgba(255,71,87,0.9);
             color: white;
             border: none;
-            width: 32px;
+                        width: 32px;
             height: 32px;
             border-radius: 50%;
             display: flex;
@@ -518,7 +518,7 @@
             padding: 10px 25px;
             border-radius: 50px;
             border: none;
-            cursor: pointer;
+                        cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
         }
@@ -722,7 +722,7 @@
         
         <footer>
             <p>© 2025 Tuan_Fix_Lag AND DATMCRR. All rights reserved.</p>
-                    </footer>
+        </footer>
     </div>
     
     <!-- Nút hiệu ứng tuyết -->
@@ -820,7 +820,7 @@
         // Hàm khi bấm nút "Rồi"
         function joinZaloGroup() {
             playMinecraftSound();
-            document.getElementById('overlay').style.display = 'none';
+                        document.getElementById('overlay').style.display = 'none';
             document.getElementById('zaloPopup').style.display = 'none';
         }
 
@@ -1001,66 +1001,7 @@
                 // Tạo nội dung mới
                 const content = btoa(JSON.stringify(currentGames, null, 2)); // Mã hóa base64
                 const message = `Update games at ${new Date().toISOString()}`;
-                
-                // Gửi request update
-                const response = await fetch(GITHUB_API_URL, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${GITHUB_TOKEN}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message,
-                        content,
-                        sha // Cần SHA nếu file đã tồn tại
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Lỗi khi lưu lên GitHub');
-                }
-                
-                // Lưu vào localStorage để dự phòng
-                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
-                
-                return true;
-            } catch (error) {
-                console.error('Lỗi khi đồng bộ lên GitHub:', error);
-                // Lưu vào localStorage nếu không kết nối được GitHub
-                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
-                return false;
-            }
-        }
-        
-        async function uploadImageToImgur(file) {
-            const formData = new FormData();
-            formData.append('image', file);
-            
-            try {
-                const response = await fetch('https://api.imgur.com/3/image', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Client-ID 9a7cec59c0c6f38' // Client ID công khai của Imgur
-                    },
-                    body: formData
-                });
-                
-                const data = await response.json();
-                return data.data.link;
-            } catch (error) {
-                console.error('Lỗi khi tải ảnh lên Imgur:', error);
-                return 'https://via.placeholder.com/300x180?text=Upload+Failed';
-            }
-        }
-
-        function renderGames() {
-            gamesGrid.innerHTML = '';
-            
-            currentGames.forEach((game, index) => {
-                const gameCard = document.createElement('div');
-                gameCard.className = 'game-card';
-                gameCard.innerHTML = `
-                    <div class="game-image-container">
+                            <div class="game-image-container">
                         <img src="${game.image}" alt="${game.title}" class="game-image">
                     </div>
                     <div class="game-info">
@@ -1104,8 +1045,7 @@
             // Thay đổi sự kiện xác nhận mật khẩu để xóa game
             const confirmBtn = document.querySelector('#passwordPopup .btn-primary');
             confirmBtn.onclick = function() {
-                const password =
-                document.getElementById('password').value;
+                const password = document.getElementById('password').value;
                 if (password === ADMIN_PASSWORD) {
                     closePopup();
                     deleteGame(gameId);
