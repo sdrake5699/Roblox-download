@@ -116,6 +116,7 @@
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             will-change: transform;
+            position: relative;
         }
         
         .game-card:hover {
@@ -199,7 +200,7 @@
             background: linear-gradient(45deg, #00dbde, #fc00ff);
             border-radius: 50%;
             display: flex;
-            align-items: center;
+                       align-items: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             cursor: pointer;
@@ -389,7 +390,7 @@
             background: rgba(255,71,87,0.9);
             color: white;
             border: none;
-                        width: 32px;
+            width: 32px;
             height: 32px;
             border-radius: 50%;
             display: flex;
@@ -424,7 +425,7 @@
             display: inline-block;
             padding-left: 100%;
             white-space: nowrap;
-            animation: marquee 20s linear infinite;
+                        animation: marquee 20s linear infinite;
             font-weight: 600;
             font-size: 1.05rem;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -489,7 +490,7 @@
         .form-control:focus {
             outline: none;
             border-color: #00dbde;
-            box-shadow: 0 0 0 3px rgba(0,219,222,0.2);
+                        box-shadow: 0 0 0 3px rgba(0,219,222,0.2);
         }
         
         textarea.form-control {
@@ -518,7 +519,7 @@
             padding: 10px 25px;
             border-radius: 50px;
             border: none;
-                        cursor: pointer;
+            cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
         }
@@ -712,6 +713,9 @@
                     <p class="game-description">Mới đây có một Client đang rất HOT dành để Hack Blox Fruit có tên gọi là Delta X Executor. Cùng Tuan_Fix_Lag tìm hiểu về phần mềm này, cũng như nắm được cách Get Key để chạy được Blox Fruits trên Client này với thông tin được chia sẻ trong bài viết dưới đây nhé!</p>
                     <a href="https://notevn.com/tps1d1pf" class="download-btn">Tải Game</a>
                 </div>
+                <button class="delete-btn" onclick="handleDeleteGame(1, 0)">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
         </div>
         
@@ -736,13 +740,15 @@
     <!-- Âm thanh Minecraft click -->
     <audio id="minecraftClick" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" preload="auto"></audio>
     
-    <script>
+<script>
         // Config
         const ADMIN_PASSWORD = "Tuan_Fix_Lag";
-        const GITHUB_USERNAME = "sdrake5699"; // Thay bằng username GitHub của bạn
-        const GITHUB_REPO = "https://github.com/sdrake5699/Roblox-download/blob/main/games.json"; // Thay bằng tên repository bạn tạo
-        const GITHUB_TOKEN = "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"; // Thay bằng token bạn tạo
-        const GITHUB_API_URL = `https://api.github.com/repos/${sdrake5699}/${Roblox-download}/contents/games.json`;
+        const GITHUB_USERNAME = "sdrake5699";
+        const GITHUB_REPO = "Roblox-download";
+        // Lưu ý: Token GitHub nên được bảo mật, không nên hardcode trong frontend
+        // Đây chỉ là ví dụ, trong thực tế nên dùng backend để xử lý
+        const GITHUB_TOKEN = "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"; 
+        const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/games.json`;
         
         let currentGames = [];
         let marqueeTimeout;
@@ -820,7 +826,7 @@
         // Hàm khi bấm nút "Rồi"
         function joinZaloGroup() {
             playMinecraftSound();
-                        document.getElementById('overlay').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
             document.getElementById('zaloPopup').style.display = 'none';
         }
 
@@ -871,7 +877,7 @@
         const snowBtn = document.getElementById('snowBtn');
         let snowInterval = null;
         let isSnowing = false;
-        let activeSnowflakes = 0;
+                let activeSnowflakes = 0;
         const maxSnowflakes = 50;
         
         snowBtn.addEventListener('click', function() {
@@ -920,7 +926,7 @@
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
-        let slideInterval;
+            let slideInterval;
 
         function showSlide(index) {
             // Hide all slides
@@ -1001,8 +1007,70 @@
                 // Tạo nội dung mới
                 const content = btoa(JSON.stringify(currentGames, null, 2)); // Mã hóa base64
                 const message = `Update games at ${new Date().toISOString()}`;
-                            <div class="game-image-container">
-                        <img src="${game.image}" alt="${game.title}" class="game-image">
+                
+                // Gửi request update
+                const response = await fetch(GITHUB_API_URL, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message,
+                        content,
+                        sha // Cần SHA nếu file đã tồn tại
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Lỗi khi lưu lên GitHub');
+                }
+                
+                // Lưu vào localStorage để dự phòng
+                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
+                
+                return true;
+            } catch (error) {
+                console.error('Lỗi khi đồng bộ lên GitHub:', error);
+                // Lưu vào localStorage nếu không kết nối được GitHub
+                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
+                return false;
+            }
+        }
+        
+        async function uploadImageToImgur(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                const response = await fetch('https://api.imgur.com/3/image', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Client-ID 9a7cec59c0c6f38' // Client ID công khai của Imgur
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                return data.data.link;
+            } catch (error) {
+                console.error('Lỗi khi tải ảnh lên Imgur:', error);
+                return 'https://via.placeholder.com/300x180?text=Upload+Failed';
+            }
+        }
+
+        function renderGames() {
+            gamesGrid.innerHTML = '';
+            
+            currentGames.forEach((game, index) => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <div class="image-slider">
+                        <img src="${game.image}" alt="${game.title}" class="slide active" loading="lazy">
+                        <div class="slider-dots">
+                            <div class="dot active" data-index="0"></div>
+                        </div>
                     </div>
                     <div class="game-info">
                         <h3 class="game-title">${game.title}</h3>
