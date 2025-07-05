@@ -2,9 +2,8 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <!-- Chống zoom và lật ngang -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <title>ROBLOX HACK - TỰ DO TÙY CHỈNH:> </title>
+    <title>ROBLOX HACK - TỰ DO TÙY CHỈNH</title>
     <style>
         * {
             margin: 0;
@@ -19,14 +18,12 @@
             min-height: 100vh;
             padding-bottom: 80px;
             overflow-x: hidden;
-            /* Chống lật ngang */
             -webkit-text-size-adjust: 100%;
             -ms-text-size-adjust: 100%;
             text-size-adjust: 100%;
             touch-action: pan-y;
         }
         
-        /* Thêm media query cho chế độ ngang */
         @media screen and (orientation: landscape) {
             body {
                 transform: rotate(0deg);
@@ -50,7 +47,6 @@
             padding: 20px;
         }
         
-        /* Style cho video container */
         .video-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -60,7 +56,7 @@
         
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 15px;
@@ -87,7 +83,7 @@
         }
         
         h1 {
-            font-size: clamp(2rem, 5vw, 3rem); /* Responsive font size */
+            font-size: clamp(2rem, 5vw, 3rem);
             margin-bottom: 10px;
             background: linear-gradient(to right, #00dbde, #fc00ff);
             -webkit-background-clip: text;
@@ -142,6 +138,7 @@
             opacity: 0;
             transition: opacity 1s ease-in-out;
             object-fit: cover;
+            background-color: #000;
         }
         
         .slide.active {
@@ -200,7 +197,7 @@
             background: linear-gradient(45deg, #00dbde, #fc00ff);
             border-radius: 50%;
             display: flex;
-                       align-items: center;
+            align-items: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             cursor: pointer;
@@ -226,7 +223,7 @@
             background: linear-gradient(45deg, #00dbde, #fc00ff);
             border-radius: 50%;
             display: flex;
-            align-items: center;
+                      align-items: center;
             justify-content: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             cursor: pointer;
@@ -328,7 +325,6 @@
             }
         }
 
-        /* Navigation dots */
         .slider-dots {
             position: absolute;
             bottom: 10px;
@@ -354,59 +350,6 @@
             transform: scale(1.2);
         }
         
-        /* Add Game Card */
-        .add-game-card {
-            background: rgba(255,255,255,0.05);
-            border: 2px dashed rgba(255,255,255,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            min-height: 350px;
-            transition: all 0.3s;
-        }
-        
-        .add-game-card:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.5);
-        }
-        
-        .add-game-icon {
-            font-size: 4rem;
-            color: rgba(255,255,255,0.5);
-            transition: all 0.3s;
-        }
-        
-        .add-game-card:hover .add-game-icon {
-            transform: scale(1.1);
-            color: rgba(255,255,255,0.8);
-        }
-        
-        /* Delete Button */
-        .delete-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(255,71,87,0.9);
-            color: white;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            transition: all 0.3s;
-            z-index: 2;
-        }
-        
-        .game-card:hover .delete-btn {
-            opacity: 1;
-        }
-        
-        /* Marquee Notification */
         .marquee-container {
             position: fixed;
             top: 0;
@@ -425,7 +368,7 @@
             display: inline-block;
             padding-left: 100%;
             white-space: nowrap;
-                        animation: marquee 20s linear infinite;
+            animation: marquee 20s linear infinite;
             font-weight: 600;
             font-size: 1.05rem;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -436,7 +379,26 @@
             100% { transform: translateX(-100%); }
         }
         
-        /* Popup Styles */
+        .notification {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #4cd137;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Popup thêm game */
         .popup {
             position: fixed;
             top: 50%;
@@ -490,7 +452,7 @@
         .form-control:focus {
             outline: none;
             border-color: #00dbde;
-                        box-shadow: 0 0 0 3px rgba(0,219,222,0.2);
+            box-shadow: 0 0 0 3px rgba(0,219,222,0.2);
         }
         
         textarea.form-control {
@@ -498,14 +460,63 @@
             resize: vertical;
         }
         
-        .image-preview {
-            width: 100%;
-            max-height: 200px;
-            object-fit: contain;
+        .image-preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-top: 10px;
+        }
+        
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
             border-radius: 8px;
-            display: none;
             border: 1px dashed rgba(255,255,255,0.3);
+            position: relative;
+        }
+        
+        .remove-image-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,71,87,0.9);
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .upload-area:hover {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.05);
+        }
+        
+        .upload-area i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        .upload-area p {
+            margin: 0;
+            opacity: 0.7;
         }
         
         .popup-footer {
@@ -544,27 +555,34 @@
             background: rgba(255,71,87,1);
         }
         
-        /* Notification */
-        .notification {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: #4cd137;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: none;
-            animation: slideIn 0.5s ease-out;
+        /* Nút thêm game */
+        .add-game-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px dashed rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+                 min-height: 350px;
+            transition: all 0.3s;
         }
         
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .add-game-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
         }
         
-        /* Responsive */
+        .add-game-icon {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        
+        .add-game-card:hover .add-game-icon {
+            transform: scale(1.1);
+            color: rgba(255,255,255,0.8);
+        }
+        
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .games-grid { grid-template-columns: 1fr; }
@@ -591,31 +609,7 @@
         </div>
     </div>
 
-    <!-- Password Popup -->
-    <div class="popup" id="passwordPopup">
-        <div class="popup-header">
-            <h2>Xác thực Quản trị</h2>
-        </div>
-        <div class="popup-body">
-            <div class="form-group">
-                <label for="password">Mật khẩu Quản trị</label>
-                <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu">
-                <p id="passwordError" style="color: #ff4757; margin-top: 5px; display: none;">
-                    <i class="fas fa-exclamation-circle"></i> Mật khẩu không chính xác!
-                </p>
-            </div>
-        </div>
-        <div class="popup-footer">
-            <button class="btn btn-danger" onclick="closePopup()">
-                <i class="fas fa-times"></i> Hủy
-            </button>
-            <button class="btn btn-primary" onclick="checkPassword()">
-                <i class="fas fa-check"></i> Xác nhận
-            </button>
-        </div>
-    </div>
-    
-    <!-- Add Game Popup -->
+    <!-- Popup thêm game -->
     <div class="popup" id="addGamePopup">
         <div class="popup-header">
             <h2>Thêm Game Mới</h2>
@@ -639,17 +633,21 @@
                 <small style="opacity: 0.7;">Nội dung này sẽ hiển thị riêng trong card game</small>
             </div>
             <div class="form-group">
-                <label for="gameImage">Ảnh Game</label>
-                <input type="file" id="gameImage" class="form-control" accept="image/*">
-                <img id="imagePreview" class="image-preview">
+                <label>Ảnh Game</label>
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Kéo thả ảnh vào đây hoặc click để chọn</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                </div>
+                <div class="image-preview-container" id="imagePreviewContainer"></div>
             </div>
         </div>
         <div class="popup-footer">
             <button class="btn btn-danger" onclick="closePopup()">
                 <i class="fas fa-times"></i> Hủy
             </button>
-            <button class="btn btn-primary" onclick="saveGame()">
-                <i class="fas fa-save"></i> Lưu Game
+            <button class="btn btn-primary" onclick="addNewGame()">
+                <i class="fas fa-plus"></i> Thêm Game
             </button>
         </div>
     </div>
@@ -658,9 +656,7 @@
     <div class="notification" id="notification"></div>
 
     <div class="container">
-        <!-- Thêm 2 video YouTube ở đây -->
         <div class="video-container">
-            <!-- Video 1 -->
             <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/DZgHXZ82UJg?si=wfNbYDcNxgsdjoqt" 
                         title="YouTube video player" 
@@ -671,7 +667,6 @@
                 </iframe>
             </div>
             
-            <!-- Video 2 -->
             <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/WfQTVcR2j80?si=9OxdRZ-LFIsIsNfA" 
                         title="YouTube video player" 
@@ -689,39 +684,31 @@
         </header>
         
         <div class="games-grid" id="gamesGrid">
-            <!-- Chỉ giữ lại 1 card game nhưng có slider ảnh -->
+            <!-- Game card mẫu -->
             <div class="game-card">
-                <div class="image-slider" id="imageSlider">
-                    <!-- Các ảnh từ các tab cũ -->
+                <div class="image-slider">
                     <img src="https://www.f6s.com/content-resource/profiles/5769070_92ce91f9b533a5ff3b8f92135b50f4e790109d82_th1.jpg" alt="Delta x VNG" class="slide active" loading="lazy">
                     <img src="https://m.media-amazon.com/images/I/31c2Fekv61L._SL500_.jpg" alt="Fluxus VNG Lite" class="slide" loading="lazy">
                     <img src="https://avatars.githubusercontent.com/u/211021487?s=200&v=4" alt="Krnl VNG Lite" class="slide" loading="lazy">
-                    <img src="https://media.licdn.com/dms/image/v2/D4E03AQGJT30pze17YA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1700830953994?e=2147483647&v=beta&t=aGlZEMslY9hxjdkEynfVqkS32Ith_tPA4VdjUuncnYc" alt="Arceus x Neo VNG Lite" class="slide" loading="lazy">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo12AKu-Klid2HvPg3_2t0R3EZeivExCsZvA&s" alt="Code X VNG Lite" class="slide" loading="lazy">
                     
-                    <!-- Navigation dots -->
                     <div class="slider-dots">
                         <div class="dot active" data-index="0"></div>
                         <div class="dot" data-index="1"></div>
                         <div class="dot" data-index="2"></div>
-                        <div class="dot" data-index="3"></div>
-                        <div class="dot" data-index="4"></div>
                     </div>
                 </div>
                 <div class="game-info">
                     <h3 class="game-title">Delta x VNG Lite</h3>
-                    <p class="game-description">Mới đây có một Client đang rất HOT dành để Hack Blox Fruit có tên gọi là Delta X Executor. Cùng Tuan_Fix_Lag tìm hiểu về phần mềm này, cũng như nắm được cách Get Key để chạy được Blox Fruits trên Client này với thông tin được chia sẻ trong bài viết dưới đây nhé!</p>
+                    <p class="game-description">Client hack Blox Fruit mới nhất với nhiều tính năng độc quyền, hỗ trợ nhiều script phổ biến.</p>
+                    <div class="game-custom-content">Nhóm hỗ trợ: https://zalo.me/g/ahmzci898</div>
                     <a href="https://notevn.com/tps1d1pf" class="download-btn">Tải Game</a>
                 </div>
-                <button class="delete-btn" onclick="handleDeleteGame(1, 0)">
-                    <i class="fas fa-trash"></i>
-                </button>
             </div>
-        </div>
-        
-        <!-- Add Game Card -->
-        <div class="game-card add-game-card" onclick="showPasswordPopup()">
-            <div class="add-game-icon">+</div>
+            
+            <!-- Nút thêm game -->
+            <div class="game-card add-game-card" onclick="showAddGamePopup()">
+                <div class="add-game-icon">+</div>
+            </div>
         </div>
         
         <footer>
@@ -737,65 +724,39 @@
         <i class="fas fa-comment-dots"></i>
     </div>
     
-    <!-- Âm thanh Minecraft click -->
-    <audio id="minecraftClick" src="https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3" preload="auto"></audio>
-    
 <script>
         // Config
         const ADMIN_PASSWORD = "Tuan_Fix_Lag";
         const GITHUB_USERNAME = "sdrake5699";
-        const GITHUB_REPO = "Roblox-download";
-        // Lưu ý: Token GitHub nên được bảo mật, không nên hardcode trong frontend
-        // Đây chỉ là ví dụ, trong thực tế nên dùng backend để xử lý
+           const GITHUB_REPO = "Roblox-download";
         const GITHUB_TOKEN = "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"; 
         const GITHUB_API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/games.json`;
         
         let currentGames = [];
         let marqueeTimeout;
+        let uploadedImages = [];
         
         // DOM Elements
         const gamesGrid = document.getElementById('gamesGrid');
         const marqueeContainer = document.getElementById('marqueeContainer');
         const marqueeContent = document.getElementById('marqueeContent');
         const overlay = document.getElementById('overlay');
-        const passwordPopup = document.getElementById('passwordPopup');
         const addGamePopup = document.getElementById('addGamePopup');
         const notification = document.getElementById('notification');
-        
-        // Sample Data
-        const sampleGames = [
-            {
-                id: 1,
-                title: "Delta X VNG Lite",
-                description: "Client hack Blox Fruit mới nhất 2023 với nhiều tính năng độc quyền.",
-                link: "https://delta.example.com",
-                image: "https://i.imgur.com/JqYeYnW.jpg",
-                customContent: "Link Zalo hỗ trợ: https://zalo.me/g/123456"
-            },
-            {
-                id: 2,
-                title: "Fluxus VNG Pro",
-                description: "Trình thực thi script mạnh mẽ với tốc độ load nhanh.",
-                link: "https://fluxus.example.com",
-                image: "https://i.imgur.com/pLQxNyz.jpg",
-                customContent: "Nhóm Telegram: @robloxhack_support"
-            }
-        ];
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
             await loadGames();
-            setupEventListeners();
-            setupImageSlider();
+            initAllSliders();
+            setupFileUpload();
             
             setTimeout(() => {
                 document.getElementById('overlay').style.display = 'block';
                 document.getElementById('zaloPopup').style.display = 'block';
             }, 1000);
-            
-            document.querySelectorAll('button, a.download-btn').forEach(btn => {
-                btn.addEventListener('click', playMinecraftSound);
-            });
             
             // Chống zoom bằng JavaScript (dự phòng)
             document.addEventListener('gesturestart', function(e) {
@@ -816,72 +777,27 @@
             window.addEventListener('orientationchange', lockOrientation);
         });
 
-        // Hàm phát âm thanh Minecraft click
-        function playMinecraftSound() {
-            const sound = document.getElementById('minecraftClick');
-            sound.currentTime = 0;
-            sound.play().catch(e => console.log('Cannot play sound:', e));
-        }
-
         // Hàm khi bấm nút "Rồi"
         function joinZaloGroup() {
-            playMinecraftSound();
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('zaloPopup').style.display = 'none';
         }
 
         // Hàm khi bấm nút "Chưa"
         function redirectToZalo() {
-            playMinecraftSound();
             window.open('https://zalo.me/g/ahmzci898', '_blank');
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('zaloPopup').style.display = 'none';
         }
 
-        // Thêm hiệu ứng khi cuộn trang - tối ưu với requestAnimationFrame
-        let lastScrollY = 0;
-        let ticking = false;
-        
-        window.addEventListener('scroll', function() {
-            lastScrollY = window.scrollY;
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    updateMiniChat(lastScrollY);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-        
-        function updateMiniChat(scrollY) {
-            const miniChat = document.querySelector('.mini-chat');
-            if (scrollY > 100) {
-                miniChat.style.transform = 'scale(0.95)';
-            } else {
-                miniChat.style.transform = 'scale(1)';
-            }
-        }
-        
-        // Hiệu ứng khi di chuột vào nút tải game
-        document.querySelectorAll('.download-btn').forEach(btn => {
-            btn.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 6px 15px rgba(0, 219, 222, 0.4)';
-            });
-            
-            btn.addEventListener('mouseleave', function() {
-                this.style.boxShadow = '0 4px 10px rgba(0, 219, 255, 0.3)';
-            });
-        });
-        
-        // Hiệu ứng tuyết rơi - tối ưu
+        // Hiệu ứng tuyết rơi
         const snowBtn = document.getElementById('snowBtn');
         let snowInterval = null;
         let isSnowing = false;
-                let activeSnowflakes = 0;
+        let activeSnowflakes = 0;
         const maxSnowflakes = 50;
         
         snowBtn.addEventListener('click', function() {
-            playMinecraftSound();
             isSnowing = !isSnowing;
             
             if (isSnowing) {
@@ -922,72 +838,249 @@
             }, animationDuration * 1000);
         }
 
-        // Image slider functionality
-        const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
-        let currentSlide = 0;
+        // Slider functionality
+        function initAllSliders() {
+            document.querySelectorAll('.image-slider').forEach(slider => {
+                initSlider(slider);
+            });
+        }
+
+        function initSlider(slider) {
+            const slides = slider.querySelectorAll('.slide');
+            const dots = slider.querySelectorAll('.dot');
+            let currentSlide = 0;
             let slideInterval;
 
-        function showSlide(index) {
-            // Hide all slides
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            // Show current slide
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentSlide = index;
-        }
+            function showSlide(index) {
+                // Hide all slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Show current slide
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                currentSlide = index;
+            }
 
-        function nextSlide() {
-            let nextIndex = (currentSlide + 1) % slides.length;
-            showSlide(nextIndex);
-        }
+            function nextSlide() {
+                let nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
 
-        // Start auto-sliding
-        function startSlider() {
-            slideInterval = setInterval(nextSlide, 3000); // Change slide every 3 seconds
-        }
+            // Start auto-sliding
+            function startSlider() {
+                slideInterval = setInterval(nextSlide, 3000);
+            }
 
-        // Initialize slider
-        showSlide(0);
-        startSlider();
+            // Initialize slider
+            showSlide(0);
+            startSlider();
 
-        // Add click event for dots
-        dots.forEach(dot => {
-            dot.addEventListener('click', function() {
-                clearInterval(slideInterval);
-                showSlide(parseInt(this.getAttribute('data-index')));
-                startSlider();
+            // Add click event for dots
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    clearInterval(slideInterval);
+                    showSlide(parseInt(this.getAttribute('data-index')));
+                    startSlider();
+                });
             });
-        });
 
-        // Pause on hover
-        const slider = document.getElementById('imageSlider');
-        slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
-        slider.addEventListener('mouseleave', startSlider);
+            // Pause on hover
+            slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+            slider.addEventListener('mouseleave', startSlider);
+        }
+        
+        // File upload functionality
+        function setupFileUpload() {
+            // Click on upload area
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // Handle file selection
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#00dbde';
+                uploadArea.style.background = 'rgba(0,219,222,0.1)';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.borderColor = 'rgba(255,255,255,0.3)';
+                uploadArea.style.background = 'transparent';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.borderColor = 'rgba(255,255,255,0.3)';
+                uploadArea.style.background = 'transparent';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect({ target: fileInput });
+                }
+            });
+        }
+        
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            
+            if (!files || files.length === 0) return;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                if (!file.type.match('image.*')) {
+                    showNotification('Chỉ chấp nhận file ảnh!', 'error');
+                    continue;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = (function(file) {
+                    return function(e) {
+                        // Resize image before displaying
+                        resizeImage(e.target.result, 800, 600, function(resizedImage) {
+                            const imageId = Date.now() + Math.random().toString(36).substr(2, 9);
+                            uploadedImages.push({
+                                id: imageId,
+                                url: resizedImage
+                            });
+                            
+                            // Create preview
+                            const previewDiv = document.createElement('div');
+                            previewDiv.className = 'image-preview-container';
+                            
+                            const img = document.createElement('img');
+                            img.src = resizedImage;
+                            img.className = 'image-preview';
+                            
+                            const removeBtn = document.createElement('button');
+                            removeBtn.className = 'remove-image-btn';
+                            removeBtn.innerHTML = '×';
+                            removeBtn.onclick = function() {
+                                removeImage(imageId);
+                            };
+                            
+                            img.appendChild(removeBtn);
+                            imagePreviewContainer.appendChild(img);
+                        });
+                    };
+                })(file);
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function removeImage(imageId) {
+            uploadedImages = uploadedImages.filter(img => img.id !== imageId);
+            renderImagePreviews();
+        }
+        
+        function renderImagePreviews() {
+            imagePreviewContainer.innerHTML = '';
+            
+            uploadedImages.forEach(image => {
+                const img = document.createElement('img');
+                img.src = image.url;
+                img.className = 'image-preview';
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-image-btn';
+                removeBtn.innerHTML = '×';
+                removeBtn.onclick = function() {
+                    removeImage(image.id);
+                };
+                
+                img.appendChild(removeBtn);
+                imagePreviewContainer.appendChild(img);
+            });
+        }
+        
+        // Resize image function
+        function resizeImage(imageUrl, maxWidth, maxHeight, callback) {
+            const img = new Image();
+            img.src = imageUrl;
+            
+            img.onload = function() {
+                let width = img.width;
+                let height = img.height;
+                
+                // Calculate new dimensions
+                if (width > height) {
+                    if (width > maxWidth) {
+                        height *= maxWidth / width;
+                        width = maxWidth;
+                    }
+                } else {
+                    if (height > maxHeight) {
+                        width *= maxHeight / height;
+                        height = maxHeight;
+                    }
+                }
+                
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                
+                // Draw image on canvas
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Get resized image as data URL
+                callback(canvas.toDataURL('image/jpeg', 0.8));
+            };
+            
+            img.onerror = function() {
+                // Fallback to original if resize fails
+                callback(imageUrl);
+            };
+        }
         
         // Game Manager Functions
-        async function loadGames() {
+            async function loadGames() {
             try {
                 const response = await fetch(GITHUB_API_URL);
                 if (response.ok) {
                     const data = await response.json();
-                    const content = atob(data.content); // Giải mã base64
+                    const content = atob(data.content);
                     currentGames = JSON.parse(content);
                 } else {
-                    // Nếu không tải được từ GitHub, dùng dữ liệu mẫu
-                    currentGames = [...sampleGames];
+                    // Dữ liệu mẫu nếu không tải được từ GitHub
+                    currentGames = [
+                        {
+                            id: 1,
+                            title: "Delta X VNG Lite",
+                            description: "Client hack Blox Fruit mới nhất với nhiều tính năng độc quyền, hỗ trợ nhiều script phổ biến.",
+                            link: "https://notevn.com/tps1d1pf",
+                            images: [
+                                "https://www.f6s.com/content-resource/profiles/5769070_92ce91f9b533a5ff3b8f92135b50f4e790109d82_th1.jpg",
+                                "https://m.media-amazon.com/images/I/31c2Fekv61L._SL500_.jpg",
+                                "https://avatars.githubusercontent.com/u/211021487?s=200&v=4"
+                            ],
+                            customContent: "Nhóm hỗ trợ: https://zalo.me/g/ahmzci898"
+                        }
+                    ];
                 }
             } catch (error) {
                 console.error('Lỗi khi tải game:', error);
-                currentGames = [...sampleGames];
-            }
-            
-            // Kiểm tra localStorage để đồng bộ offline
-            const localGames = localStorage.getItem('robloxGames');
-            if (localGames) {
-                currentGames = JSON.parse(localGames);
+                currentGames = [
+                    {
+                        id: 1,
+                        title: "Delta X VNG Lite",
+                        description: "Client hack Blox Fruit mới nhất với nhiều tính năng độc quyền, hỗ trợ nhiều script phổ biến.",
+                        link: "https://notevn.com/tps1d1pf",
+                        images: [
+                            "https://www.f6s.com/content-resource/profiles/5769070_92ce91f9b533a5ff3b8f92135b50f4e790109d82_th1.jpg",
+                            "https://m.media-amazon.com/images/I/31c2Fekv61L._SL500_.jpg",
+                            "https://avatars.githubusercontent.com/u/211021487?s=200&v=4"
+                        ],
+                        customContent: "Nhóm hỗ trợ: https://zalo.me/g/ahmzci898"
+                    }
+                ];
             }
             
             renderGames();
@@ -1005,7 +1098,7 @@
                 }
                 
                 // Tạo nội dung mới
-                const content = btoa(JSON.stringify(currentGames, null, 2)); // Mã hóa base64
+                const content = btoa(JSON.stringify(currentGames, null, 2));
                 const message = `Update games at ${new Date().toISOString()}`;
                 
                 // Gửi request update
@@ -1018,7 +1111,7 @@
                     body: JSON.stringify({
                         message,
                         content,
-                        sha // Cần SHA nếu file đã tồn tại
+                        sha
                     })
                 });
                 
@@ -1026,50 +1119,34 @@
                     throw new Error('Lỗi khi lưu lên GitHub');
                 }
                 
-                // Lưu vào localStorage để dự phòng
-                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
-                
                 return true;
             } catch (error) {
                 console.error('Lỗi khi đồng bộ lên GitHub:', error);
-                // Lưu vào localStorage nếu không kết nối được GitHub
-                localStorage.setItem('robloxGames', JSON.stringify(currentGames));
                 return false;
             }
         }
         
-        async function uploadImageToImgur(file) {
-            const formData = new FormData();
-            formData.append('image', file);
-            
-            try {
-                const response = await fetch('https://api.imgur.com/3/image', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Client-ID 9a7cec59c0c6f38' // Client ID công khai của Imgur
-                    },
-                    body: formData
-                });
-                
-                const data = await response.json();
-                return data.data.link;
-            } catch (error) {
-                console.error('Lỗi khi tải ảnh lên Imgur:', error);
-                return 'https://via.placeholder.com/300x180?text=Upload+Failed';
-            }
-        }
-
         function renderGames() {
             gamesGrid.innerHTML = '';
             
-            currentGames.forEach((game, index) => {
+            currentGames.forEach((game) => {
                 const gameCard = document.createElement('div');
                 gameCard.className = 'game-card';
+                
+                // Tạo HTML cho slider ảnh
+                let slidesHTML = '';
+                let dotsHTML = '';
+                
+                game.images.forEach((image, index) => {
+                    slidesHTML += `<img src="${image}" alt="${game.title}" class="slide ${index === 0 ? 'active' : ''}" loading="lazy">`;
+                    dotsHTML += `<div class="dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`;
+                });
+                
                 gameCard.innerHTML = `
                     <div class="image-slider">
-                        <img src="${game.image}" alt="${game.title}" class="slide active" loading="lazy">
+                        ${slidesHTML}
                         <div class="slider-dots">
-                            <div class="dot active" data-index="0"></div>
+                            ${dotsHTML}
                         </div>
                     </div>
                     <div class="game-info">
@@ -1080,90 +1157,31 @@
                             <i class="fas fa-download"></i> Tải Ngay
                         </a>
                     </div>
-                    <button class="delete-btn" onclick="handleDeleteGame(${game.id}, ${index})">
-                        <i class="fas fa-trash"></i>
-                    </button>
                 `;
                 gamesGrid.appendChild(gameCard);
             });
             
-            // Add the "Add Game" card
+            // Thêm nút "Thêm game" vào cuối
             const addCard = document.createElement('div');
             addCard.className = 'game-card add-game-card';
             addCard.innerHTML = '<div class="add-game-icon">+</div>';
-            addCard.onclick = showPasswordPopup;
+            addCard.onclick = showAddGamePopup;
             gamesGrid.appendChild(addCard);
-        }
-        
-        function handleDeleteGame(gameId, index) {
-            // Nếu là 2 game đầu tiên (index 0 và 1) thì yêu cầu nhập mật khẩu
-            if (index === 0 || index === 1) {
-                showPasswordPopupForDelete(gameId);
-            } else {
-                // Các game khác xóa bình thường
-                deleteGame(gameId);
-            }
-        }
-        
-        function showPasswordPopupForDelete(gameId) {
-            overlay.style.display = 'block';
-            passwordPopup.style.display = 'block';
-            document.getElementById('passwordError').style.display = 'none';
             
-            // Thay đổi sự kiện xác nhận mật khẩu để xóa game
-            const confirmBtn = document.querySelector('#passwordPopup .btn-primary');
-            confirmBtn.onclick = function() {
-                const password = document.getElementById('password').value;
-                if (password === ADMIN_PASSWORD) {
-                    closePopup();
-                    deleteGame(gameId);
-                } else {
-                    document.getElementById('passwordError').style.display = 'block';
-                }
-            };
+            // Khởi tạo slider cho tất cả game card
+            initAllSliders();
         }
         
-        function setupEventListeners() {
-            // Image preview
-            document.getElementById('gameImage').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        const preview = document.getElementById('imagePreview');
-                        preview.src = event.target.result;
-                        preview.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-        
-        function showPasswordPopup() {
-            overlay.style.display = 'block';
-            passwordPopup.style.display = 'block';
-            document.getElementById('passwordError').style.display = 'none';
-            document.getElementById('password').value = '';
-        }
-        
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            if (password === ADMIN_PASSWORD) {
-                closePopup();
-                showAddGamePopup();
-            } else {
-                document.getElementById('passwordError').style.display = 'block';
-            }
-        }
-        
+        // Popup thêm game
         function showAddGamePopup() {
             // Reset form
             document.getElementById('gameTitle').value = '';
             document.getElementById('gameDescription').value = '';
             document.getElementById('gameLink').value = '';
             document.getElementById('gameCustomContent').value = '';
-            document.getElementById('gameImage').value = '';
-            document.getElementById('imagePreview').style.display = 'none';
+            fileInput.value = '';
+            imagePreviewContainer.innerHTML = '';
+            uploadedImages = [];
             
             overlay.style.display = 'block';
             addGamePopup.style.display = 'block';
@@ -1171,75 +1189,45 @@
         
         function closePopup() {
             overlay.style.display = 'none';
-            passwordPopup.style.display = 'none';
             addGamePopup.style.display = 'none';
         }
         
-        async function saveGame() {
+        async function addNewGame() {
             const title = document.getElementById('gameTitle').value.trim();
             const description = document.getElementById('gameDescription').value.trim();
             const link = document.getElementById('gameLink').value.trim();
             const customContent = document.getElementById('gameCustomContent').value.trim();
-            const imageFile = document.getElementById('gameImage').files[0];
             
-            if (!title || !description || !link) {
-                showNotification('Vui lòng điền đầy đủ thông tin!', 'error');
+            if (!title || !description || !link || uploadedImages.length === 0) {
+                showNotification('Vui lòng điền đầy đủ thông tin và thêm ít nhất 1 ảnh!', 'error');
                 return;
             }
+            
+            // Lấy danh sách URL ảnh đã upload
+            const images = uploadedImages.map(img => img.url);
             
             const newGame = {
                 id: Date.now(),
                 title,
                 description,
                 link: link.startsWith('http') ? link : `https://${link}`,
-                customContent,
-                image: imageFile ? await uploadImageToImgur(imageFile) : 'https://via.placeholder.com/300x180?text=No+Image'
+                images,
+                customContent
             };
             
-            // Thêm vào danh sách hiện tại
+            // Thêm game mới vào danh sách
             currentGames.push(newGame);
             
-            // Đồng bộ lên GitHub
+            // Lưu lên GitHub
             const success = await saveGamesToGitHub();
             
             if (success) {
-                showMarqueeNotification(`THÔNG BÁO: Đã thêm game "${title}" thành công!`);
+                showNotification('Đã thêm game mới thành công!', 'success');
                 renderGames();
                 closePopup();
-                showNotification('Đã thêm game mới thành công!', 'success');
             } else {
-                showNotification('Đã lưu game tạm thời, chưa đồng bộ lên server!', 'warning');
+                showNotification('Lỗi khi lưu game lên server!', 'error');
             }
-        }
-        
-        async function deleteGame(gameId) {
-            if (!confirm('Bạn có chắc chắn muốn xóa game này?')) return;
-            
-            currentGames = currentGames.filter(game => game.id !== gameId);
-            const success = await saveGamesToGitHub();
-            
-            if (success) {
-                renderGames();
-                showNotification('Đã xóa game thành công!', 'success');
-            } else {
-                showNotification('Đã xóa game tạm thời, chưa đồng bộ lên server!', 'warning');
-            }
-        }
-        
-        function showMarqueeNotification(message) {
-            // Clear previous timeout if exists
-            if (marqueeTimeout) {
-                clearTimeout(marqueeTimeout);
-            }
-            
-            // Update content and show
-            marqueeContent.textContent = message;
-            marqueeContainer.style.display = 'block';
-            
-            // Auto hide after 1 hour (3600000ms)
-            marqueeTimeout = setTimeout(() => {
-                marqueeContainer.style.display = 'none';
-            }, 3600000);
         }
         
         function showNotification(message, type = 'success') {
@@ -1250,11 +1238,6 @@
             setTimeout(() => {
                 notification.style.display = 'none';
             }, 3000);
-        }
-        
-        function setupImageSlider() {
-            showSlide(0);
-            startSlider();
         }
     </script>
 </body>
