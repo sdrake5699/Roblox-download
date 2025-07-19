@@ -2,143 +2,193 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROBLOX HACK - AUTO SYNC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ROBLOX HACK MANAGER</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             background: #1a1a2e;
             color: white;
             padding: 20px;
-            line-height: 1.6;
+            min-height: 100vh;
+            touch-action: manipulation;
+            overflow-x: hidden;
         }
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
         }
         h1 {
             background: linear-gradient(90deg, #00dbde, #fc00ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 20px 0;
+            margin: 10px 0 20px;
+            text-align: center;
+            font-size: 1.8rem;
         }
-        .game-tabs {
+        .tab-container {
             display: flex;
             gap: 10px;
-            margin: 20px 0;
+            margin-bottom: 20px;
             overflow-x: auto;
             padding-bottom: 10px;
+            scrollbar-width: none;
         }
-        .game-tab {
+        .tab-container::-webkit-scrollbar {
+            display: none;
+        }
+        .tab {
             padding: 8px 16px;
             background: rgba(255,255,255,0.1);
             border-radius: 20px;
             cursor: pointer;
             white-space: nowrap;
-            transition: all 0.3s;
+            user-select: none;
         }
-        .game-tab.active {
+        .tab.active {
             background: linear-gradient(45deg, #00dbde, #fc00ff);
             font-weight: bold;
         }
-        .games-grid {
+        .games-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
         .game-card {
             background: rgba(255,255,255,0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            transition: transform 0.3s;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        .game-card h3 {
+            margin-bottom: 8px;
+            color: #00dbde;
         }
-        .add-game-form {
-            margin-top: 40px;
-            background: rgba(0,0,0,0.3);
+        .game-card p {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .game-card a {
+            color: #fc00ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .add-game-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            border: none;
+            color: white;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #16213e;
             padding: 20px;
             border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         .form-group {
             margin-bottom: 15px;
         }
-        label {
+        .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-        input, textarea, select {
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 10px;
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.3);
             color: white;
             border-radius: 5px;
-            margin-bottom: 10px;
         }
-        button {
-            background: linear-gradient(45deg, #00dbde, #fc00ff);
-            color: white;
-            border: none;
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
             padding: 10px 20px;
             border-radius: 5px;
+            border: none;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,219,222,0.4);
-        }
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #4CAF50;
+        .btn-primary {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
             color: white;
-            padding: 15px 25px;
-            border-radius: 5px;
-            display: none;
-            z-index: 1000;
         }
-        .error {
-            background: #f44336;
+        .empty-state {
+            text-align: center;
+            margin-top: 50px;
+            color: rgba(255,255,255,0.5);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>ROBLOX HACK MANAGER</h1>
+        <h1>QUẢN LÝ GAME</h1>
         
-        <!-- Tab Game -->
-        <div class="game-tabs" id="gameTabs">
-            <div class="game-tab active" data-tab="all">Tất cả</div>
-            <div class="game-tab" data-tab="phổ biến">Phổ biến</div>
-            <div class="game-tab" data-tab="mới nhất">Mới nhất</div>
-            <button id="addTabBtn" style="margin-left: auto;">+ Thêm Tab</button>
+        <div class="tab-container" id="tabContainer">
+            <div class="tab active" data-tab="all">Tất cả</div>
+            <!-- Các tab sẽ được thêm động ở đây -->
         </div>
         
-        <!-- Danh sách game -->
-        <div class="games-grid" id="gamesGrid">
-            <!-- Game sẽ được render ở đây -->
+        <div class="games-container" id="gamesContainer">
+            <!-- Nội dung game sẽ được thêm động ở đây -->
         </div>
         
-        <!-- Form thêm game -->
-        <div class="add-game-form">
+        <div class="empty-state" id="emptyState">
+            Chưa có game nào. Hãy thêm game mới!
+        </div>
+    </div>
+    
+    <button class="add-game-btn" id="addGameBtn">+</button>
+    
+    <!-- Modal thêm game -->
+    <div class="modal" id="addGameModal">
+        <div class="modal-content">
             <h2>Thêm Game Mới</h2>
             <div class="form-group">
                 <label for="gameTitle">Tên Game</label>
-                <input type="text" id="gameTitle" placeholder="Nhập tên game" required>
+                <input type="text" id="gameTitle" required>
             </div>
             <div class="form-group">
                 <label for="gameDescription">Mô tả</label>
@@ -146,54 +196,63 @@
             </div>
             <div class="form-group">
                 <label for="gameLink">Link tải</label>
-                <input type="url" id="gameLink" placeholder="https://" required>
+                <input type="url" id="gameLink" required>
             </div>
             <div class="form-group">
-                <label for="gameTab">Chọn Tab</label>
+                <label for="gameTab">Tab</label>
                 <select id="gameTab">
-                    <option value="phổ biến">Phổ biến</option>
-                    <option value="mới nhất">Mới nhất</option>
+                    <!-- Các tab sẽ được thêm động ở đây -->
                 </select>
             </div>
-            <button id="addGameBtn">Thêm Game</button>
+            <div class="form-actions">
+                <button class="btn" id="cancelBtn">Hủy</button>
+                <button class="btn btn-primary" id="saveGameBtn">Lưu</button>
+            </div>
         </div>
     </div>
-    
-    <div class="notification" id="notification"></div>
 
     <script>
-        // ========= CẤU HÌNH GITHUB ========= //
-        const GITHUB_CONFIG = {
-            USERNAME: "sdrake5699", // 👈 THAY BẰNG USERNAME CỦA BẠN
-            REPO: "Roblox-download",          // 👈 ĐÚNG TÊN REPOSITORY
-            TOKEN: "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",       // 👈 THAY BẰNG TOKEN MỚI CỦA BẠN
+        // Cấu hình GitHub
+        const GITHUB = {
+            USERNAME: "sdrake5699",
+            REPO: "Roblox-download",
+            TOKEN: "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",
             get API_URL() {
                 return `https://api.github.com/repos/${this.USERNAME}/${this.REPO}/contents/games.json`;
             }
         };
 
-        // ========= BIẾN TOÀN CỤC ========= //
+        // Dữ liệu ứng dụng
         let currentGames = {
-            "all": [],
-            "phổ biến": [],
-            "mới nhất": []
+            "all": []
         };
         let currentTab = "all";
+        let tabs = ["all"];
 
-        // ========= KHỞI TẠO ỨNG DỤNG ========= //
+        // DOM Elements
+        const tabContainer = document.getElementById('tabContainer');
+        const gamesContainer = document.getElementById('gamesContainer');
+        const emptyState = document.getElementById('emptyState');
+        const addGameBtn = document.getElementById('addGameBtn');
+        const addGameModal = document.getElementById('addGameModal');
+        const gameTabSelect = document.getElementById('gameTab');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveGameBtn = document.getElementById('saveGameBtn');
+
+        // Khởi tạo ứng dụng
         document.addEventListener('DOMContentLoaded', async () => {
             await loadGames();
+            renderTabs();
             renderGames();
             setupEventListeners();
         });
 
-        // ========= HÀM CHÍNH ========= //
+        // Hàm tải dữ liệu từ GitHub
         async function loadGames() {
             try {
-                showNotification("Đang tải dữ liệu...");
-                const response = await fetch(GITHUB_CONFIG.API_URL, {
+                const response = await fetch(GITHUB.API_URL, {
                     headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.TOKEN}`,
+                        'Authorization': `token ${GITHUB.TOKEN}`,
                         'Accept': 'application/vnd.github.v3+json'
                     }
                 });
@@ -201,40 +260,33 @@
                 if (response.ok) {
                     const data = await response.json();
                     currentGames = JSON.parse(atob(data.content));
-                    showNotification("Tải dữ liệu thành công!");
-                } else if (response.status === 404) {
-                    // Nếu file chưa tồn tại, tạo file mới
-                    await saveGames();
-                } else {
-                    throw new Error(await response.text());
+                    updateTabsList();
                 }
             } catch (error) {
                 console.error("Lỗi tải dữ liệu:", error);
-                showNotification("Lỗi tải dữ liệu: " + error.message, "error");
             }
         }
 
+        // Hàm lưu dữ liệu lên GitHub
         async function saveGames() {
             try {
-                // 1. Lấy SHA file hiện tại (nếu có)
+                // Lấy SHA file hiện tại
                 let sha = null;
-                try {
-                    const getRes = await fetch(GITHUB_CONFIG.API_URL, {
-                        headers: { 'Authorization': `token ${GITHUB_CONFIG.TOKEN}` }
-                    });
-                    if (getRes.ok) sha = (await getRes.json()).sha;
-                } catch (e) {}
+                const getRes = await fetch(GITHUB.API_URL, {
+                    headers: { 'Authorization': `token ${GITHUB.TOKEN}` }
+                });
+                if (getRes.ok) sha = (await getRes.json()).sha;
                 
-                // 2. Chuẩn bị dữ liệu
+                // Chuẩn bị dữ liệu
                 const content = btoa(unescape(encodeURIComponent(
                     JSON.stringify(currentGames, null, 2)
-                ));
+                )));
                 
-                // 3. Gửi lên GitHub
-                const response = await fetch(GITHUB_CONFIG.API_URL, {
+                // Gửi lên GitHub
+                const response = await fetch(GITHUB.API_URL, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.TOKEN}`,
+                        'Authorization': `token ${GITHUB.TOKEN}`,
                         'Content-Type': 'application/json',
                         'Accept': 'application/vnd.github.v3+json'
                     },
@@ -245,61 +297,152 @@
                     })
                 });
                 
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || "Lỗi không xác định");
-                }
-                
-                return true;
+                return response.ok;
             } catch (error) {
                 console.error("Lỗi lưu dữ liệu:", error);
-                showNotification("Lỗi lưu dữ liệu: " + error.message, "error");
                 return false;
             }
         }
 
+        // Cập nhật danh sách tab từ dữ liệu game
+        function updateTabsList() {
+            tabs = ["all", ...Object.keys(currentGames).filter(tab => tab !== "all")];
+        }
+
+        // Render các tab
+        function renderTabs() {
+            // Xóa tất cả tab trừ tab "Tất cả"
+            while (tabContainer.children.length > 1) {
+                tabContainer.removeChild(tabContainer.lastChild);
+            }
+            
+            // Thêm các tab từ danh sách
+            tabs.filter(tab => tab !== "all").forEach(tab => {
+                const tabElement = document.createElement('div');
+                tabElement.className = 'tab';
+                tabElement.dataset.tab = tab;
+                tabElement.textContent = tab;
+                tabElement.addEventListener('click', () => switchTab(tab));
+                tabContainer.appendChild(tabElement);
+            });
+            
+            // Cập nhật select tab trong modal
+            gameTabSelect.innerHTML = '';
+            tabs.filter(tab => tab !== "all").forEach(tab => {
+                const option = document.createElement('option');
+                option.value = tab;
+                option.textContent = tab;
+                gameTabSelect.appendChild(option);
+            });
+            
+            // Nếu chưa có tab nào, thêm option mặc định
+            if (gameTabSelect.options.length === 0) {
+                const option = document.createElement('option');
+                option.value = "default";
+                option.textContent = "Mặc định";
+                gameTabSelect.appendChild(option);
+            }
+        }
+
+        // Chuyển tab
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.tab === tab);
+            });
+            renderGames();
+        }
+
+        // Render danh sách game
         function renderGames() {
-            const container = document.getElementById('gamesGrid');
-            container.innerHTML = '';
+            gamesContainer.innerHTML = '';
             
             const gamesToShow = currentTab === 'all' 
                 ? currentGames.all 
                 : (currentGames[currentTab] || []);
             
             if (gamesToShow.length === 0) {
-                container.innerHTML = '<p>Chưa có game nào trong tab này</p>';
+                emptyState.style.display = 'block';
                 return;
             }
             
+            emptyState.style.display = 'none';
+            
             gamesToShow.forEach(game => {
-                container.innerHTML += `
-                    <div class="game-card">
-                        <h3>${game.title}</h3>
-                        <p>${game.description}</p>
-                        <p><a href="${game.link}" target="_blank" style="color: #00dbde;">Tải về</a></p>
-                        ${game.customContent ? `<div class="custom-content">${game.customContent}</div>` : ''}
-                        <small>Tab: ${game.tab || 'all'}</small>
-                    </div>
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <h3>${game.title}</h3>
+                    <p>${game.description}</p>
+                    <p><a href="${game.link}" target="_blank">Tải về</a></p>
+                    ${game.customContent ? `<p>${game.customContent}</p>` : ''}
                 `;
+                gamesContainer.appendChild(gameCard);
             });
         }
 
-        // ========= XỬ LÝ SỰ KIỆN ========= //
-        function setupEventListeners() {
-            // Chuyển tab
-            document.querySelectorAll('.game-tab[data-tab]').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    currentTab = tab.dataset.tab;
-                    document.querySelectorAll('.game-tab').forEach(t => 
-                        t.classList.remove('active')
-                    );
-                    tab.classList.add('active');
-                    renderGames();
-                });
-            });
+        // Thêm tab mới
+        async function addNewTab(tabName) {
+            if (!tabName || tabs.includes(tabName)) return;
             
-            // Thêm game
-            document.getElementById('addGameBtn').addEventListener('click', async () => {
+            currentGames[tabName] = [];
+            tabs.push(tabName);
+            
+            const success = await saveGames();
+            if (success) {
+                renderTabs();
+                switchTab(tabName);
+            }
+        }
+
+        // Thêm game mới
+        async function addNewGame(gameData) {
+            if (!gameData.tab || gameData.tab === "all") {
+                gameData.tab = tabs.length > 1 ? tabs[1] : "default";
+            }
+            
+            // Thêm vào tab cụ thể
+            if (!currentGames[gameData.tab]) {
+                currentGames[gameData.tab] = [];
+            }
+            currentGames[gameData.tab].push(gameData);
+            
+            // Thêm vào tab 'all'
+            currentGames.all.push(gameData);
+            
+            // Lưu lên GitHub
+            const success = await saveGames();
+            if (success) {
+                renderGames();
+                closeModal();
+            }
+        }
+
+        // Mở modal thêm game
+        function openModal() {
+            addGameModal.style.display = 'flex';
+            document.getElementById('gameTitle').focus();
+        }
+
+        // Đóng modal
+        function closeModal() {
+            addGameModal.style.display = 'none';
+            // Reset form
+            document.getElementById('gameTitle').value = '';
+            document.getElementById('gameDescription').value = '';
+            document.getElementById('gameLink').value = '';
+        }
+
+        // Thiết lập event listeners
+        function setupEventListeners() {
+            // Nút thêm game
+            addGameBtn.addEventListener('click', openModal);
+            
+            // Nút hủy trong modal
+            cancelBtn.addEventListener('click', closeModal);
+            
+            // Nút lưu trong modal
+            saveGameBtn.addEventListener('click', async () => {
                 const gameData = {
                     id: Date.now(),
                     title: document.getElementById('gameTitle').value.trim(),
@@ -309,72 +452,24 @@
                     customContent: ""
                 };
                 
-                // Validate
                 if (!gameData.title || !gameData.description || !gameData.link) {
-                    showNotification("Vui lòng điền đủ thông tin", "error");
+                    alert("Vui lòng điền đủ thông tin");
                     return;
                 }
                 
-                try {
-                    // Thêm vào danh sách
-                    if (!currentGames[gameData.tab]) currentGames[gameData.tab] = [];
-                    currentGames[gameData.tab].push(gameData);
-                    currentGames.all.push(gameData);
-                    
-                    // Đồng bộ lên GitHub
-                    const success = await saveGames();
-                    if (success) {
-                        showNotification("Đã thêm game thành công!");
-                        renderGames();
-                        // Reset form
-                        document.getElementById('gameTitle').value = '';
-                        document.getElementById('gameDescription').value = '';
-                        document.getElementById('gameLink').value = '';
-                    }
-                } catch (error) {
-                    console.error(error);
-                }
+                await addNewGame(gameData);
             });
             
-            // Thêm tab mới
-            document.getElementById('addTabBtn').addEventListener('click', async () => {
-                const tabName = prompt("Nhập tên tab mới:");
-                if (tabName && !currentGames[tabName]) {
-                    currentGames[tabName] = [];
-                    const success = await saveGames();
-                    if (success) {
-                        showNotification(`Đã thêm tab "${tabName}"`);
-                        // Thêm tab vào UI
-                        const tabsContainer = document.getElementById('gameTabs');
-                        const newTab = document.createElement('div');
-                        newTab.className = 'game-tab';
-                        newTab.dataset.tab = tabName;
-                        newTab.textContent = tabName;
-                        newTab.addEventListener('click', function() {
-                            currentTab = tabName;
-                            document.querySelectorAll('.game-tab').forEach(t => 
-                                t.classList.remove('active')
-                            );
-                            this.classList.add('active');
-                            renderGames();
-                        });
-                        tabsContainer.insertBefore(newTab, document.getElementById('addTabBtn'));
-                    }
-                }
+            // Chống zoom
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
             });
-        }
-
-        // ========= TIỆN ÍCH ========= //
-        function showNotification(message, type = "success") {
-            const noti = document.getElementById('notification');
-            noti.textContent = message;
-            noti.className = `notification ${type === "error" ? "error" : ""}`;
-            noti.style.display = "block";
             
-            setTimeout(() => {
-                noti.style.display = "none";
-            }, 3000);
+            // Chống scroll ngang
+            document.addEventListener('touchmove', function(e) {
+                if (e.scale !== 1) e.preventDefault();
+            }, { passive: false });
         }
     </script>
 </body>
-</html>
+    </html>
