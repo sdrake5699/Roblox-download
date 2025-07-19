@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBLOX HACK - TỰ ĐỘNG ĐỒNG BỘ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .game-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        .game-tab {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .game-tab.active {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .game-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        .add-game-form {
+            margin-top: 30px;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 5px;
+        }
+        button {
+            background: linear-gradient(45deg, #00dbde, #fc00ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ROBLOX HACK MANAGER</h1>
+        
+        <!-- Tab Game -->
+        <div class="game-tabs" id="gameTabs">
+            <div class="game-tab active" data-tab="all">Tất cả</div>
+            <div class="game-tab" data-tab="phổ biến">Phổ biến</div>
+            <div class="game-tab" data-tab="mới nhất">Mới nhất</div>
+            <button id="addTabBtn">+ Tab</button>
+        </div>
+        
+        <!-- Danh sách game -->
+        <div class="games-grid" id="gamesGrid"></div>
+        
+        <!-- Form thêm game -->
+        <div class="add-game-form">
+            <h2>Thêm Game Mới</h2>
+            <div class="form-group">
+                <label>Tên Game</label>
+                <input type="text" id="gameTitle" placeholder="Nhập tên game">
+            </div>
+            <div class="form-group">
+                <label>Mô tả</label>
+                <textarea id="gameDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Link tải</label>
+                <input type="text" id="gameLink" placeholder="https://">
+            </div>
+            <div class="form-group">
+                <label>Tab</label>
+                <select id="gameTab">
+                    <option value="phổ biến">Phổ biến</option>
+                    <option value="mới nhất">Mới nhất</option>
+                </select>
+            </div>
+            <button id="addGameBtn">Thêm Game</button>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // ========= CẤU HÌNH ========= //
+        const GITHUB_USERNAME = "sdrake5699"; // 👈 Thay bằng username GitHub
+        const GITHUB_REPO = "Roblox-download";    // 👈 Đúng tên repository
+        const GITHUB_TOKEN = "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";       // 👈 Thay bằng token của bạn
+        const GITHUB_API = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/games.json`;
+        
+        // ========= BIẾN TOÀN CỤC ========= //
+        let currentGames = {};
+        let currentTab = "all";
+        
+        // ========= HÀM KHỞI TẠO ========= //
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadGames();
+            renderGames();
+            setupEventListeners();
+        });
+        
+        // ========= HÀM CHÍNH ========= //
+        async function loadGames() {
+            try {
+                const response = await fetch(GITHUB_API, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    currentGames = JSON.parse(atob(data.content));
+                } else {
+                    // Tạo file mới nếu chưa tồn tại
+                    currentGames = { 
+                        "all": [], 
+                        "phổ biến": [], 
+                        "mới nhất": [] 
+                    };
+                    await saveGames();
+                }
+            } catch (error) {
+                showNotification("Lỗi tải dữ liệu: " + error.message, "error");
+            }
+        }
+        
+        async function saveGames() {
+            try {
+                // Lấy SHA file hiện tại
+                const getRes = await fetch(GITHUB_API, {
+                    headers: { 'Authorization': `token ${GITHUB_TOKEN}` }
+                });
+                const sha = getRes.ok ? (await getRes.json()).sha : null;
+                
+                // Chuẩn bị dữ liệu
+                const content = btoa(unescape(encodeURIComponent(
+                    JSON.stringify(currentGames, null, 2)
+                )));
+                
+                // Gửi lên GitHub
+                const response = await fetch(GITHUB_API, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${GITHUB_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Cập nhật lúc ${new Date().toLocaleString()}`,
+                        content,
+                        sha
+                    })
+                });
+                
+                if (!response.ok) throw new Error(await response.text());
+                showNotification("Đã lưu thành công!", "success");
+                
+            } catch (error) {
+                showNotification("Lỗi lưu dữ liệu: " + error.message, "error");
+                console.error(error);
+            }
+        }
+        
+        function renderGames() {
+            const container = document.getElementById('gamesGrid');
+            container.innerHTML = '';
+            
+            const gamesToShow = currentTab === 'all' 
+                ? currentGames.all 
+                : (currentGames[currentTab] || []);
+            
+            gamesToShow.forEach(game => {
+                container.innerHTML += `
+                    <div class="game-card">
+                        <h3>${game.title}</h3>
+                        <p>${game.description}</p>
+                        <p><a href="${game.link}" target="_blank">Tải về</a></p>
+                        ${game.customContent ? `<p>${game.customContent}</p>` : ''}
+                    </div>
+                `;
+            });
+        }
+        
+        // ========= SỰ KIỆN ========= //
+        function setupEventListeners() {
+            // Chuyển tab
+            document.querySelectorAll('.game-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    currentTab = tab.dataset.tab;
+                    document.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderGames();
+                });
+            });
+            
+            // Thêm game
+            document.getElementById('addGameBtn').addEventListener('click', async () => {
+                const gameData = {
+                    id: Date.now(),
+                    title: document.getElementById('gameTitle').value.trim(),
+                    description: document.getElementById('gameDescription').value.trim(),
+                    link: document.getElementById('gameLink').value.trim(),
+                    tab: document.getElementById('gameTab').value,
+                    customContent: ""
+                };
+                
+                if (!gameData.title || !gameData.description || !gameData.link) {
+                    showNotification("Vui lòng điền đủ thông tin", "error");
+                    return;
+                }
+                
+                // Thêm vào danh sách
+                if (!currentGames[gameData.tab]) currentGames[gameData.tab] = [];
+                currentGames[gameData.tab].push(gameData);
+                currentGames.all.push(gameData);
+                
+                // Đồng bộ
+                await saveGames();
+                renderGames();
+                
+                // Reset form
+                document.getElementById('gameTitle').value = '';
+                document.getElementById('gameDescription').value = '';
+                document.getElementById('gameLink').value = '';
+            });
+        }
+        
+        // ========= TIỆN ÍCH ========= //
+        function showNotification(message, type = "success") {
+            const noti = document.getElementById('notification');
+            noti.textContent = message;
+            noti.style.backgroundColor = type === "success" ? "#4CAF50" : "#f44336";
+            noti.style.display = "block";
+            
+            setTimeout(() => {
+                noti.style.display = "none";
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
