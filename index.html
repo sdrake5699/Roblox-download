@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBLOX Game Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --danger: #f72585;
+            --success: #4cc9f0;
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 8px 16px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+        }
+        
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+        
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        
+        .add-btn { background: var(--primary); }
+        .sync-btn { background: var(--success); }
+        .tab-btn { background: var(--accent); }
+    </style>
+</head>
+<body>
+    <h1>QUẢN LÝ GAME ROBLOX</h1>
+    
+    <div class="tab-container" id="tabContainer">
+        <div class="tab active" data-tab="all">Tất cả</div>
+    </div>
+    
+    <div class="games-container" id="gamesContainer"></div>
+    
+    <div class="action-buttons">
+        <button class="action-btn tab-btn" id="addTabBtn" title="Thêm tab">
+            <i class="fas fa-folder-plus"></i>
+        </button>
+        <button class="action-btn sync-btn" id="syncBtn" title="Đồng bộ">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+        <button class="action-btn add-btn" id="addGameBtn" title="Thêm game">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+    
+    <!-- Modal thêm game -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <h2>Thêm Game Mới</h2>
+            <div class="form-group">
+                <label>Tên Game</label>
+                <input type="text" id="gameTitle">
+            </div>
+            <div class="form-group">
+                <label>Mô tả</label>
+                <textarea id="gameDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Link</label>
+                <input type="url" id="gameLink">
+            </div>
+            <div class="form-group">
+                <label>Tab</label>
+                <select id="gameTab"></select>
+            </div>
+            <button class="btn" id="saveGameBtn">Lưu</button>
+        </div>
+    </div>
+    
+    <!-- Modal thêm tab -->
+    <div class="modal" id="tabModal">
+        <div class="modal-content">
+            <h2>Thêm Tab Mới</h2>
+            <div class="form-group">
+                <label>Tên Tab</label>
+                <input type="text" id="tabName">
+            </div>
+            <button class="btn" id="saveTabBtn">Tạo</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
