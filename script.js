@@ -2,7 +2,7 @@
 const githubConfig = {
     USERNAME: "sdrake5699",
     REPO: "Roblox-download",
-    TOKEN: "ghp_yourtokenhere",
+    TOKEN: "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",
     FILE_PATH: "games.json",
     get API_URL() {
         return `https://api.github.com/repos/${this.USERNAME}/${this.REPO}/contents/${this.FILE_PATH}`;
